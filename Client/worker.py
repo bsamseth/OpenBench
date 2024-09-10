@@ -19,15 +19,12 @@
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 import argparse
-import cpuinfo
 import json
 import multiprocessing
 import os
 import platform
-import psutil
 import queue
 import re
-import requests
 import subprocess
 import sys
 import threading
@@ -35,22 +32,23 @@ import time
 import traceback
 import uuid
 import zipfile
-
-from subprocess import PIPE, Popen, call, STDOUT
-from itertools import combinations_with_replacement
 from concurrent.futures import ThreadPoolExecutor
+from itertools import combinations_with_replacement
+from subprocess import PIPE, STDOUT, Popen, call
+
+import bench
+import cpuinfo
+import psutil
+import requests
+from client import BadVersionException, try_forever, url_join
+from genfens import create_genfens_opening_book
+from pgn_util import compress_list_of_pgns
+from utils import *
 
 ## Local imports
 
-import bench
 
-from client import BadVersionException
-from client import url_join
-from client import try_forever
 
-from utils import *
-from pgn_util import compress_list_of_pgns
-from genfens import create_genfens_opening_book
 
 ## Basic configuration of the Client. These timeouts can be changed at will
 
